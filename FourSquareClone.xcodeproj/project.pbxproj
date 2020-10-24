@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		63183FE1A278588C07089BA1 /* Pods_FourSquareClone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C5F5582EFB7078D997230B4 /* Pods_FourSquareClone.framework */; };
 		7C72D2292541A4B0008B1784 /* LocationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C72D2282541A4B0008B1784 /* LocationsVC.swift */; };
+		7C72D22D25444F58008B1784 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C72D22C25444F58008B1784 /* MapVC.swift */; };
 		7C8F766425335E9E000C9C6A /* PlacesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8F766325335E9E000C9C6A /* PlacesVC.swift */; };
 		7C9375FD2505500E00EF8EAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9375FC2505500E00EF8EAF /* AppDelegate.swift */; };
 		7C9375FF2505500E00EF8EAF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9375FE2505500E00EF8EAF /* SceneDelegate.swift */; };
@@ -22,6 +23,7 @@
 		1C5F5582EFB7078D997230B4 /* Pods_FourSquareClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FourSquareClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		409CD09C440DC87BD0BEB73C /* Pods-FourSquareClone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FourSquareClone.debug.xcconfig"; path = "Target Support Files/Pods-FourSquareClone/Pods-FourSquareClone.debug.xcconfig"; sourceTree = "<group>"; };
 		7C72D2282541A4B0008B1784 /* LocationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsVC.swift; sourceTree = "<group>"; };
+		7C72D22C25444F58008B1784 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		7C8F766325335E9E000C9C6A /* PlacesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesVC.swift; sourceTree = "<group>"; };
 		7C9375F92505500E00EF8EAF /* FourSquareClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FourSquareClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C9375FC2505500E00EF8EAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				7C9376002505500E00EF8EAF /* SignUpVC.swift */,
 				7C8F766325335E9E000C9C6A /* PlacesVC.swift */,
 				7C72D2282541A4B0008B1784 /* LocationsVC.swift */,
+				7C72D22C25444F58008B1784 /* MapVC.swift */,
 				7C9376052505501000EF8EAF /* Assets.xcassets */,
 				7C9376072505501000EF8EAF /* LaunchScreen.storyboard */,
 				7C93760A2505501000EF8EAF /* Info.plist */,
@@ -213,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C9376012505500E00EF8EAF /* SignUpVC.swift in Sources */,
+				7C72D22D25444F58008B1784 /* MapVC.swift in Sources */,
 				7C9375FD2505500E00EF8EAF /* AppDelegate.swift in Sources */,
 				7C72D2292541A4B0008B1784 /* LocationsVC.swift in Sources */,
 				7C8F766425335E9E000C9C6A /* PlacesVC.swift in Sources */,

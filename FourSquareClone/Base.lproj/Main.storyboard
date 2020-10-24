@@ -207,6 +207,32 @@
             </objects>
             <point key="canvasLocation" x="2237.68115942029" y="129.61956521739131"/>
         </scene>
+        <!--MapVC-->
+        <scene sceneID="Yx8-Kr-F2M">
+            <objects>
+                <viewController id="0od-7q-g0q" customClass="MapVC" customModule="FourSquareClone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rbf-si-NEB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="M5R-8A-FLD">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            </mapView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="7zD-Ci-zJc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="M5R-8A-FLD" firstAttribute="top" secondItem="7zD-Ci-zJc" secondAttribute="top" id="4Nc-ha-pFA"/>
+                            <constraint firstItem="7zD-Ci-zJc" firstAttribute="bottom" secondItem="M5R-8A-FLD" secondAttribute="bottom" id="Mjo-f1-ocm"/>
+                            <constraint firstItem="M5R-8A-FLD" firstAttribute="leading" secondItem="7zD-Ci-zJc" secondAttribute="leading" id="RoO-ub-6NJ"/>
+                            <constraint firstItem="7zD-Ci-zJc" firstAttribute="trailing" secondItem="M5R-8A-FLD" secondAttribute="trailing" id="a8z-7X-lbG"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G4h-Aq-XsS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3003" y="130"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="HP2-bx-zXh">
             <objects>
