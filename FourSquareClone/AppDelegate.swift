@@ -1,20 +1,25 @@
 //
 //  AppDelegate.swift
 //  FourSquareClone
-//
 //  Created by StarChanger on 06/09/2020.
 //  Copyright © 2020 StarChanger. All rights reserved.
 //
 
 import UIKit
+import Parse
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let configuration = ParseClientConfiguration {
+          $0.applicationId = "6cczZE4Yfs4YvBYahbzWIGfUMbuq1gK14nc3FfZY"
+          $0.clientKey = "4Si7F2E2PRjyLGsVLq3z5m8EWi9KbC1SYPAQfIU8"
+          $0.server = "https://parseapi.back4app.com"
+        }
+        Parse.initialize(with: configuration)
+     
         return true
     }
 
