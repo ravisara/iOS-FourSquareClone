@@ -25,7 +25,7 @@ class PlacesVC: UIViewController {
     }
     
     @objc func plusButtonPressed() {
-        print("Plus button clicked")
+        performSegue(withIdentifier: "toLocationsVC", sender: nil)
     }
     
     @objc func logoutButtonClicked() {

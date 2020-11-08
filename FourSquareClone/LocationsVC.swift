@@ -14,15 +14,22 @@ class LocationsVC: UIViewController {
     @IBOutlet weak var placeType: UITextField!
     @IBOutlet weak var placeAtmosphere: UITextField!
     @IBOutlet weak var placePicture: UIImageView!
-    @IBOutlet weak var nextButton: UIButton!
+    
+    @IBAction func nextButtonTapped(_ sender: UIButton) {
+        performSegue(withIdentifier: "toMapVC", sender: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
     }
     
-
+    
+    
+    
+    
     /*
     // MARK: - Navigation
 

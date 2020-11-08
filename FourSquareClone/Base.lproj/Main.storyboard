@@ -3,7 +3,7 @@
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -120,7 +120,7 @@
                     <connections>
                         <outlet property="tableView" destination="Wc1-0i-CRe" id="QYp-Mq-eaJ"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="toSignUpInVC" modalPresentationStyle="fullScreen" id="6PL-WM-1zB"/>
-                        <segue destination="KT6-Jn-wpH" kind="show" id="eU3-q1-wm4"/>
+                        <segue destination="KT6-Jn-wpH" kind="show" identifier="toLocationsVC" id="eU3-q1-wm4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MIO-UQ-Ubb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -172,6 +172,9 @@
                                     <constraint firstAttribute="height" constant="30" id="vJ4-ya-e8F"/>
                                 </constraints>
                                 <state key="normal" title="Next"/>
+                                <connections>
+                                    <action selector="nextButtonTapped:" destination="KT6-Jn-wpH" eventType="touchUpInside" id="zCw-jo-BCG"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zqd-89-rLo"/>
@@ -196,11 +199,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="lDH-gx-5nt"/>
                     <connections>
-                        <outlet property="nextButton" destination="fQi-el-MzL" id="5nn-FV-37a"/>
                         <outlet property="placeAtmosphere" destination="Zty-sd-Gxd" id="Ua8-xo-pzW"/>
                         <outlet property="placeName" destination="c9J-5x-M7r" id="GUu-4N-OQf"/>
                         <outlet property="placePicture" destination="9h8-IZ-gmI" id="ivj-q6-xm8"/>
                         <outlet property="placeType" destination="hyL-nh-6yS" id="7aA-9S-813"/>
+                        <segue destination="GeC-QS-G1N" kind="presentation" identifier="toMapVC" modalPresentationStyle="fullScreen" id="F3Q-Qx-QE3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mAl-jb-ptD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -216,7 +219,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="M5R-8A-FLD">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="692"/>
                             </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7zD-Ci-zJc"/>
@@ -228,10 +231,14 @@
                             <constraint firstItem="7zD-Ci-zJc" firstAttribute="trailing" secondItem="M5R-8A-FLD" secondAttribute="trailing" id="a8z-7X-lbG"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Ine-0u-GjC"/>
+                    <connections>
+                        <outlet property="mapView" destination="M5R-8A-FLD" id="a0p-Hz-XCu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G4h-Aq-XsS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3003" y="130"/>
+            <point key="canvasLocation" x="3910.144927536232" y="129.61956521739131"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="HP2-bx-zXh">
@@ -251,6 +258,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IaH-u0-Fkl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="553.62318840579712" y="129.61956521739131"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Nv3-jC-dq0">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GeC-QS-G1N" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="XyW-Gk-U99"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XRU-cl-1gQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="0od-7q-g0q" kind="relationship" relationship="rootViewController" id="hlw-q7-Zix"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Enf-g1-d7V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3002.898550724638" y="129.61956521739131"/>
         </scene>
     </scenes>
     <resources>
