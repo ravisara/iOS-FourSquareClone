@@ -8,7 +8,9 @@
 
 import UIKit
 
-class LocationsVC: UIViewController {
+class LocationsVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+ 
+    
 
     @IBOutlet weak var placeName: UITextField!
     @IBOutlet weak var placeType: UITextField!
@@ -23,12 +25,28 @@ class LocationsVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        placePicture.addGestureRecognizer(gestureRecognizer)
+        placePicture.isUserInteractionEnabled = true
         
     }
     
+    @objc
+    func imageTapped() {
+        
+        let imageController = UIImagePickerController()
+        imageController.allowsEditing = false
+        imageController.delegate = self
+        imageController.sourceType = .photoLibrary
+        
+        self.present(imageController, animated: true)
+        
+    }
     
-    
-    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        placePicture.image = info[(.originalImage)] as? UIImage // as sometings can wrong like the user not selecting an image - why optional casting is done.
+        self.dismiss(animated: true, completion: nil)
+    }
     
     /*
     // MARK: - Navigation
