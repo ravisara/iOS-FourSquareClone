@@ -20,6 +20,12 @@ class MapVC: UIViewController {
         navigationController?.navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(title: "< Back", style: UIBarButtonItem.Style.plain, target: self, action: #selector(goToLocationsVC))
         
         navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItem.Style.plain, target: self, action: #selector(saveButtonTapped))
+        
+        let placeModel = PlaceModel.sharedInstance
+        print("place name is " + placeModel.placeName)
+        print("place atmosphere is " + placeModel.placeAtmosphere)
+        print("place type is " + placeModel.placeType)
+            
     }
     
     

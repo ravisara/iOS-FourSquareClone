@@ -18,6 +18,7 @@
 		7C9376042505500E00EF8EAF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C9376022505500E00EF8EAF /* Main.storyboard */; };
 		7C9376062505501000EF8EAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C9376052505501000EF8EAF /* Assets.xcassets */; };
 		7C9376092505501000EF8EAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C9376072505501000EF8EAF /* LaunchScreen.storyboard */; };
+		7CA197ED257FEDE1006B6FE9 /* PlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA197EC257FEDE1006B6FE9 /* PlaceModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		7C9376052505501000EF8EAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7C9376082505501000EF8EAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7C93760A2505501000EF8EAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7CA197EC257FEDE1006B6FE9 /* PlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceModel.swift; sourceTree = "<group>"; };
 		8B4DCCEDA3C4C552088035CC /* Pods-FourSquareClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FourSquareClone.release.xcconfig"; path = "Target Support Files/Pods-FourSquareClone/Pods-FourSquareClone.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -90,6 +92,7 @@
 				7C9376052505501000EF8EAF /* Assets.xcassets */,
 				7C9376072505501000EF8EAF /* LaunchScreen.storyboard */,
 				7C93760A2505501000EF8EAF /* Info.plist */,
+				7CA197EC257FEDE1006B6FE9 /* PlaceModel.swift */,
 			);
 			path = FourSquareClone;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 				7C9375FD2505500E00EF8EAF /* AppDelegate.swift in Sources */,
 				7C72D2292541A4B0008B1784 /* LocationsVC.swift in Sources */,
 				7C252794255993F90033A11F /* DetailsVC.swift in Sources */,
+				7CA197ED257FEDE1006B6FE9 /* PlaceModel.swift in Sources */,
 				7C8F766425335E9E000C9C6A /* PlacesVC.swift in Sources */,
 				7C9375FF2505500E00EF8EAF /* SceneDelegate.swift in Sources */,
 			);
