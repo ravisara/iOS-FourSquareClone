@@ -9,9 +9,10 @@
 import UIKit
 import MapKit
 
-class MapVC: UIViewController {
+class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
+    let locationsManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,9 +26,26 @@ class MapVC: UIViewController {
         print("place name is " + placeModel.placeName)
         print("place atmosphere is " + placeModel.placeAtmosphere)
         print("place type is " + placeModel.placeType)
+        
+        mapView.delegate = self
+        locationsManager.delegate = self
+        locationsManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationsManager.requestWhenInUseAuthorization()
+        locationsManager.startUpdatingLocation()
             
     }
     
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        //manager.stopUpdatingLocation() // Should I use this manager or should I use locationsManager defined above ? Found through experimentation that both work.
+        locationsManager.stopUpdatingLocation()
+        let currentUserLocation = CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude)
+        let spanToUseForMap = MKCoordinateSpan(latitudeDelta: 0.035, longitudeDelta: 0.035)
+        let region = MKCoordinateRegion(center: currentUserLocation, span: spanToUseForMap)
+        
+        mapView.setRegion(region, animated: true)
+        
+    }
     
     @objc func goToLocationsVC() {
         print("about to try taking to LocationsVC")
@@ -47,5 +65,5 @@ class MapVC: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

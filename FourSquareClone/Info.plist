@@ -43,8 +43,8 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>I put this text in - user: I want to access your photo library!</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>I want to access your location to send a hug</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
