@@ -6,13 +6,15 @@
 //  Copyright © 2020 StarChanger. All rights reserved.
 //
 
-import UIKit
+//import UIKit trying to see if I can get away with not importing this(21-Jan-2021)
 import MapKit
 
 class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     let locationsManager = CLLocationManager()
+    var sharedLatitude: String = ""
+    var sharedLongitude: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +34,36 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         locationsManager.desiredAccuracy = kCLLocationAccuracyBest
         locationsManager.requestWhenInUseAuthorization()
         locationsManager.startUpdatingLocation()
+        
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(gestureRecognizer:)))
+        longPressGestureRecognizer.minimumPressDuration = 3
+        mapView.addGestureRecognizer(longPressGestureRecognizer)
+        
+        
             
     }
+    
+    @objc func longPressed(gestureRecognizer: UILongPressGestureRecognizer) {       
+        
+        if (gestureRecognizer.state == UIGestureRecognizer.State.began) { // not clear what exactly this is for TODO
+            
+            let touches = gestureRecognizer.location(in: self.view)
+            let coordinatesOfTheTouchPointInMapView = mapView.convert(touches, toCoordinateFrom: self.view)
+            
+            let annotation = MKPointAnnotation()
+            annotation.title = PlaceModel.sharedInstance.placeName
+            annotation.subtitle = PlaceModel.sharedInstance.placeType
+            annotation.coordinate = coordinatesOfTheTouchPointInMapView
+            
+            sharedLatitude = String(coordinatesOfTheTouchPointInMapView.latitude)
+            sharedLongitude = String(coordinatesOfTheTouchPointInMapView.longitude)
+            
+            mapView.addAnnotation(annotation)
+            
+        }
+   
+    }
+    
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
