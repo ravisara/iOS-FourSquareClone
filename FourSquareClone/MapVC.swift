@@ -4,18 +4,17 @@
 //
 //  Created by StarChanger on 24/10/2020.
 //  Copyright © 2020 StarChanger. All rights reserved.
-//
+//<#T##(() -> Void)?##(() -> Void)?##() -> Void#>
 
 //import UIKit trying to see if I can get away with not importing this(21-Jan-2021)
 import MapKit
+import Parse
 
 class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     let locationsManager = CLLocationManager()
-    var sharedLatitude: String = ""
-    var sharedLongitude: String = ""
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,11 +38,9 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         longPressGestureRecognizer.minimumPressDuration = 3
         mapView.addGestureRecognizer(longPressGestureRecognizer)
         
-        
-            
     }
     
-    @objc func longPressed(gestureRecognizer: UILongPressGestureRecognizer) {       
+    @objc func longPressed(gestureRecognizer: UILongPressGestureRecognizer) {
         
         if (gestureRecognizer.state == UIGestureRecognizer.State.began) { // not clear what exactly this is for TODO
             
@@ -54,16 +51,15 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
             annotation.title = PlaceModel.sharedInstance.placeName
             annotation.subtitle = PlaceModel.sharedInstance.placeType
             annotation.coordinate = coordinatesOfTheTouchPointInMapView
-            
-            sharedLatitude = String(coordinatesOfTheTouchPointInMapView.latitude)
-            sharedLongitude = String(coordinatesOfTheTouchPointInMapView.longitude)
+                        
+            PlaceModel.sharedInstance.sharedLatitude = String(coordinatesOfTheTouchPointInMapView.latitude)
+            PlaceModel.sharedInstance.sharedLongitude = String(coordinatesOfTheTouchPointInMapView.longitude)
             
             mapView.addAnnotation(annotation)
             
         }
    
     }
-    
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
@@ -83,7 +79,39 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     }
     
     @objc func saveButtonTapped() {
-        print("Save button tapped")
+        
+        let object = PFObject(className: "PlacesV1")
+        
+        object.add(PlaceModel.sharedInstance.placeName, forKey: "name")
+        object.add(PlaceModel.sharedInstance.placeType, forKey: "type")
+        object.add(PlaceModel.sharedInstance.placeAtmosphere, forKey: "atmosphere")
+        object.add(PlaceModel.sharedInstance.sharedLatitude, forKey: "lattitude")
+        object.add(PlaceModel.sharedInstance.sharedLongitude, forKey: "longitude")
+        
+        
+        if let fileData = PlaceModel.sharedInstance.placePicture.jpegData(compressionQuality: 0.5) {
+            let fileObject = PFFileObject(name: "image.jpg", data: fileData)
+            object["picture"] = fileObject
+        }
+     
+        object.saveInBackground { (success, error) in
+            if (error != nil) {
+                self.showAllert(alertTitle: "Error saving to Parse server!", alertMessage: error?.localizedDescription ?? "Unknown error" )
+            } else {
+                self.showAllert(alertTitle: "Success!", alertMessage: "Location successfully saved to Parse")
+                self.performSegue(withIdentifier: "fromMapVCtoPlacesVC", sender: nil)
+            }
+        }
+        
+    }
+    
+    func showAllert(alertTitle:String, alertMessage:String) {
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage , preferredStyle: UIAlertController.Style.alert)
+        let alertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+        alertController.addAction(alertAction)
+        present(alertController, animated: true, completion: nil)
+    
+        
     }
 
     /*

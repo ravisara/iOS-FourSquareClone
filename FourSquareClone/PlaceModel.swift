@@ -18,6 +18,8 @@ class PlaceModel {
     var placeType = ""
     var placeAtmosphere = ""
     var placePicture = UIImage()
+    var sharedLatitude = ""
+    var sharedLongitude = ""
     
     private init() {} // As this is a Singleton
     
