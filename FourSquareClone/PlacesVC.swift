@@ -9,7 +9,20 @@
 import UIKit
 import Parse
 
-class PlacesVC: UIViewController {
+class PlacesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    var objectIDArray = [String]()
+    var placeNameArray =  [String]()
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return placeNameArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        cell.textLabel?.text = placeNameArray[indexPath.row]
+        return cell
+    }
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -17,11 +30,42 @@ class PlacesVC: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        //navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: nil, action: #selector(plusButtonPressed))
+      
         navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(plusButtonPressed))
         
         navigationController?.navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(title: "Log out", style: UIBarButtonItem.Style.plain, target: self, action: #selector(logoutButtonClicked))
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        getDataFromParseServer()
     
+    }
+    
+    func getDataFromParseServer() {
+        let query = PFQuery(className: "Places")
+        
+        query.findObjectsInBackground { (objects, error) in
+            if (error != nil) {
+                self.showAllert(alertTitle: "Error", alertMessage: error?.localizedDescription ?? "Unknown error reading from the cloud")
+            } else {
+                if (objects != nil) {
+                    
+                    self.placeNameArray.removeAll(keepingCapacity: false)
+                    self.objectIDArray.removeAll(keepingCapacity: false)
+                    
+                    for object in objects! {
+                        if let name = object.object(forKey: "name") as? String {
+                            if let objectID = object.objectId {
+                                self.objectIDArray.append(objectID)
+                                self.placeNameArray.append(name)
+                            }
+                        }
+                    }
+                    self.tableView.reloadData()
+                }
+            }
+        }
     }
     
     @objc func plusButtonPressed() {
@@ -29,13 +73,11 @@ class PlacesVC: UIViewController {
     }
     
     @objc func logoutButtonClicked() {
+        
         print("Log out button clicked")
         PFUser.logOutInBackground { (error) in
             if (error != nil) {
-                let alertController = UIAlertController(title: "Error", message: "Error encountered logging out", preferredStyle: UIAlertController.Style.alert)
-                let alertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
-                alertController.addAction(alertAction)
-                self.present(alertController, animated: true, completion: nil)
+                self.showAllert(alertTitle: "Error", alertMessage: error?.localizedDescription ?? "Error logging out")
             } else {
                 self.performSegue(withIdentifier: "toSignUpInVC", sender: self)
             }
@@ -43,6 +85,12 @@ class PlacesVC: UIViewController {
         
     }
     
+    func showAllert(alertTitle:String, alertMessage:String) {
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage , preferredStyle: UIAlertController.Style.alert)
+        let alertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+        alertController.addAction(alertAction)
+        present(alertController, animated: true, completion: nil)
+    }
     
 
     /*

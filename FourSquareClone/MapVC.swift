@@ -80,15 +80,16 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     @objc func saveButtonTapped() {
         
-        let object = PFObject(className: "PlacesV1")
+        let object = PFObject(className: "Places")
+        let model = PlaceModel.sharedInstance
         
-        object.add(PlaceModel.sharedInstance.placeName, forKey: "name")
-        object.add(PlaceModel.sharedInstance.placeType, forKey: "type")
-        object.add(PlaceModel.sharedInstance.placeAtmosphere, forKey: "atmosphere")
-        object.add(PlaceModel.sharedInstance.sharedLatitude, forKey: "lattitude")
-        object.add(PlaceModel.sharedInstance.sharedLongitude, forKey: "longitude")
-        
-        
+        //object.add(PlaceModel.sharedInstance.placeName, forKey: "name") This created an array although I thought this was similar to using the syntax below! Good lesson learned.
+        object["name"] = model.placeName
+        object["type"] = model.placeType
+        object["atmosphere"] = model.placeAtmosphere
+        object["lattitude"] = model.sharedLatitude
+        object["longitude"] = model.sharedLongitude
+                
         if let fileData = PlaceModel.sharedInstance.placePicture.jpegData(compressionQuality: 0.5) {
             let fileObject = PFFileObject(name: "image.jpg", data: fileData)
             object["picture"] = fileObject
@@ -109,9 +110,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         let alertController = UIAlertController(title: alertTitle, message: alertMessage , preferredStyle: UIAlertController.Style.alert)
         let alertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
         alertController.addAction(alertAction)
-        present(alertController, animated: true, completion: nil)
-    
-        
+        present(alertController, animated: true, completion: nil)        
     }
 
     /*
