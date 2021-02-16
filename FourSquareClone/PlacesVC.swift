@@ -11,20 +11,10 @@ import Parse
 
 class PlacesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var tableView: UITableView!
     var objectIDArray = [String]()
     var placeNameArray =  [String]()
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return placeNameArray.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = placeNameArray[indexPath.row]
-        return cell
-    }
-
-    @IBOutlet weak var tableView: UITableView!
+    var selectedObjectID: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +56,28 @@ class PlacesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return placeNameArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        cell.textLabel?.text = placeNameArray[indexPath.row]
+        return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "showDetailsVC") {
+            let detailsVC = segue.destination as! DetailsVC
+            detailsVC.selectedObjectID = selectedObjectID
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedObjectID = objectIDArray[indexPath.row]
+        performSegue(withIdentifier: "showDetailsVC", sender: nil)
     }
     
     @objc func plusButtonPressed() {

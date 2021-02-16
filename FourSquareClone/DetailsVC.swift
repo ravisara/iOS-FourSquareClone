@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Parse
 
 class DetailsVC: UIViewController {
 
@@ -21,10 +22,31 @@ class DetailsVC: UIViewController {
     
     @IBOutlet weak var detailsMapView: MKMapView!
     
+    var selectedObjectID: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
+        print("selectedObjectID = " + selectedObjectID)
+        
+        let query = PFQuery(className: "Places")
+        //query.whereKey("ObjectID", contains: selectedObjectID)
+        query.whereKey("objectId", equalTo: selectedObjectID)
+        query.findObjectsInBackground { (objects, error) in
+            if (error != nil) {
+                self.showAllert(alertTitle: "Error", alertMessage: error?.localizedDescription ?? "Unknown error when fetching details from the cloud")
+            } else {
+                print(objects)
+            }
+        }
+    }
+    
+    func showAllert(alertTitle:String, alertMessage:String) {
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage , preferredStyle: UIAlertController.Style.alert)
+        let alertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+        alertController.addAction(alertAction)
+        present(alertController, animated: true, completion: nil)
     }
     
 
