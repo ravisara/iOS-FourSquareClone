@@ -7,6 +7,7 @@
 //<#T##(() -> Void)?##(() -> Void)?##() -> Void#>
 
 //import UIKit trying to see if I can get away with not importing this(21-Jan-2021)
+// TODO location manager updates not working in the way I want, table view is not laoding data newly added.
 import MapKit
 import Parse
 
@@ -64,7 +65,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         //manager.stopUpdatingLocation() // Should I use this manager or should I use locationsManager defined above ? Found through experimentation that both work.
-        locationsManager.stopUpdatingLocation()
+        locationsManager.stopUpdatingLocation() // this is proving problamatic though as when the location is not changed from the simulator, the mapview no longer updates(although it does so initially)
         let currentUserLocation = CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude)
         let spanToUseForMap = MKCoordinateSpan(latitudeDelta: 0.035, longitudeDelta: 0.035)
         let region = MKCoordinateRegion(center: currentUserLocation, span: spanToUseForMap)

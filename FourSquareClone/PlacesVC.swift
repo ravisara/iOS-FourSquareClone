@@ -32,6 +32,7 @@ class PlacesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     }
     
+    
     func getDataFromParseServer() {
         let query = PFQuery(className: "Places")
         

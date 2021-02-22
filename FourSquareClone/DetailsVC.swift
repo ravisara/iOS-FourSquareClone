@@ -67,11 +67,11 @@ class DetailsVC: UIViewController {
                         
                         if let placeAtmosphere = placesObject.value(forKey: "atmosphere") as? String {
                             self.detailsPlaceAtmosphere.text = placeAtmosphere
-                        }                        
+                        }
                         
                         if let placeLattitude = placesObject.value(forKey: "lattitude") as? String {
                             if let placeLattitudeDouble = Double(placeLattitude) {
-                                self.detailsLongitude = placeLattitudeDouble
+                                self.detailsLattitude = placeLattitudeDouble
                             }
                         }
                         
