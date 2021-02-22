@@ -33,7 +33,7 @@ class DetailsVC: UIViewController {
     fileprivate func getDataFromParse() {
         
         let query = PFQuery(className: "Places")
-        //query.whereKey("ObjectID", contains: selectedObjectID)
+        
         query.whereKey("objectId", equalTo: selectedObjectID)
         query.findObjectsInBackground { (objects, error) in // As only one object will be loaded, singular form is used.
             if error != nil {
@@ -81,6 +81,20 @@ class DetailsVC: UIViewController {
                             }
                         }
                         
+                        let location = CLLocationCoordinate2D(latitude: self.detailsLattitude, longitude: self.detailsLongitude)
+                        let spanForMap = MKCoordinateSpan(latitudeDelta: 0.035, longitudeDelta: 0.035) // I think the course instructor uses these values normally.
+                        
+                        let regionToShow = MKCoordinateRegion(center: location, span: spanForMap)
+                        self.detailsMapView.region = regionToShow
+                        
+                        // Add the annotation
+                        let annotationToShow = MKPointAnnotation()
+                        annotationToShow.coordinate = location
+                        annotationToShow.title = self.detailsPlaceName.text
+                        annotationToShow.subtitle = self.detailsPlaceType.text
+                        
+                        self.detailsMapView.addAnnotation(annotationToShow)
+                                                
                     }
                     
                 }
