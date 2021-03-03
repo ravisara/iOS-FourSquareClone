@@ -9,8 +9,8 @@
 import MapKit
 import Parse
 
-class DetailsVC: UIViewController {
-
+class DetailsVC: UIViewController, MKMapViewDelegate {
+    
     @IBOutlet weak var detailsImage: UIImageView!
     @IBOutlet weak var detailsPlaceName: UILabel!
     @IBOutlet weak var detailsPlaceType: UILabel!
@@ -22,12 +22,16 @@ class DetailsVC: UIViewController {
     var detailsLongitude = Double()
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
+        detailsMapView.delegate = self
         
         // Do any additional setup after loading the view.
         print("selectedObjectID = " + selectedObjectID)
         
         getDataFromParse()
+        
     }
     
     fileprivate func getDataFromParse() {
@@ -94,7 +98,7 @@ class DetailsVC: UIViewController {
                         annotationToShow.subtitle = self.detailsPlaceType.text
                         
                         self.detailsMapView.addAnnotation(annotationToShow)
-                                                
+                        
                     }
                     
                 }
@@ -109,15 +113,70 @@ class DetailsVC: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func mapView(_ mapView: MKMapView, viewFor currentlyConsideredAnnotation: MKAnnotation) -> MKAnnotationView? {
+        
+        if currentlyConsideredAnnotation is MKUserLocation { // as we don't want to touch the annotation that shows the users current location
+            return nil
+        }
+        
+        let reuseId = "pinAnnotationOfPlace"
+        
+        var pinView = detailsMapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
+        
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: currentlyConsideredAnnotation, reuseIdentifier: reuseId )
+            pinView?.canShowCallout = true
+            
+            let button = UIButton(type: UIButton.ButtonType.detailDisclosure)
+            pinView?.rightCalloutAccessoryView = button
+        } else {
+            pinView!.annotation = currentlyConsideredAnnotation
+        }
+        
+        return pinView
+        
     }
-    */
-
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        
+        if detailsLattitude != 0.0 && detailsLongitude != 0.0 {
+            
+            let requestLocation = CLLocation(latitude: detailsLattitude, longitude: detailsLongitude)
+            CLGeocoder().reverseGeocodeLocation(requestLocation) { (placemarks, error) in
+                
+                if error != nil {
+                    
+                } else {
+                    if let placeMarksForSavedLocation = placemarks {
+                        
+                        if placeMarksForSavedLocation.count > 0 {
+                            
+                            let placeMark = MKPlacemark(placemark: placeMarksForSavedLocation[0])
+                            let mapItem = MKMapItem(placemark: placeMark)
+                            mapItem.name = self.detailsPlaceName.text
+                            
+                            let theLaunchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
+                            mapItem.openInMaps(launchOptions: theLaunchOptions)
+                        }
+                        
+                    }
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
