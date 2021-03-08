@@ -7,7 +7,6 @@
 //<#T##(() -> Void)?##(() -> Void)?##() -> Void#>
 
 //import UIKit trying to see if I can get away with not importing this(21-Jan-2021)
-// TODO location manager updates not working in the way I want, table view is not laoding data newly added.
 import MapKit
 import Parse
 
@@ -43,7 +42,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     @objc func longPressed(gestureRecognizer: UILongPressGestureRecognizer) {
         
-        if (gestureRecognizer.state == UIGestureRecognizer.State.began) { // not clear what exactly this is for TODO
+        if (gestureRecognizer.state == UIGestureRecognizer.State.began) { // not clear what exactly this is for
             
             let touches = gestureRecognizer.location(in: self.view)
             let coordinatesOfTheTouchPointInMapView = mapView.convert(touches, toCoordinateFrom: self.view)
@@ -65,7 +64,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         //manager.stopUpdatingLocation() // Should I use this manager or should I use locationsManager defined above ? Found through experimentation that both work.
-        locationsManager.stopUpdatingLocation() // this is proving problamatic though as when the location is not changed from the simulator, the mapview no longer updates(although it does so initially)
+        locationsManager.stopUpdatingLocation() // this is proving problamatic though as when the location is not changed from the simulator, the mapview no longer updates(although it does so initially). However, when this was reviewed on 6-Mar-2021, I felt this was working OK.
         let currentUserLocation = CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude)
         let spanToUseForMap = MKCoordinateSpan(latitudeDelta: 0.035, longitudeDelta: 0.035)
         let region = MKCoordinateRegion(center: currentUserLocation, span: spanToUseForMap)
@@ -100,8 +99,15 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
             if (error != nil) {
                 self.showAllert(alertTitle: "Error saving to Parse server!", alertMessage: error?.localizedDescription ?? "Unknown error" )
             } else {
-                self.showAllert(alertTitle: "Success!", alertMessage: "Location successfully saved to Parse")
-                self.performSegue(withIdentifier: "fromMapVCtoPlacesVC", sender: nil)
+                //self.showAllert(alertTitle: "Success!", alertMessage: "Location successfully saved to Parse")
+                self.performSegue(withIdentifier: "fromMapVCtoNControllerBeforePlacesVC", sender: nil)
+                
+                // Following didn't work either when an alert was displayed.
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { https://stackoverflow.com/questions/38031137/how-to-program-a-delay-in-swift-3
+//                   // Code you want to be delayed
+//                    self.performSegue(withIdentifier: "fromMapVCtoNControllerBeforePlacesVC", sender: nil)
+//                }                
+                
             }
         }
         

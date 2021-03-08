@@ -59,8 +59,7 @@ class SignUpVC: UIViewController {
         }
         
     }
-    
-    // TODO create notes around alerts as I get confused with this. Started a section in Onenote on this.
+        
     func showAlert(titleText: String, messageText: String) {
         
         let alertController = UIAlertController(title: titleText, message: messageText, preferredStyle: UIAlertController.Style.alert)
