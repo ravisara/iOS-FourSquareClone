@@ -50,4 +50,4 @@ No contributions are expected or necessary. Just created for educational purpose
 Built according to instructions provided on an online course. So, many thanks to the course instructor. 
 
 # License: 
-For educational non-commercial use.
+Intended for educational use. However, see the licence for more information.
